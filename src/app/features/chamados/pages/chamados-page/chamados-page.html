@@ -1,0 +1,46 @@
+<main class="container">
+  <header class="cabecalho">
+    <h1>Chamados técnicos</h1>
+    <button type="button" (click)="alternarFormulario()">
+      {{ exibirFormulario() ? 'Fechar formulário' : 'Criar chamado' }}
+    </button>
+  </header>
+
+  @if (exibirFormulario()) {
+    <form class="formulario" (ngSubmit)="salvarChamado()">
+      <label>
+        Título
+        <input [(ngModel)]="novoChamado.titulo" name="titulo" required />
+      </label>
+      <label>
+        Descrição
+        <textarea [(ngModel)]="novoChamado.descricao" name="descricao" required></textarea>
+      </label>
+      <label>
+        Prioridade
+        <select [(ngModel)]="novoChamado.prioridade" name="prioridade">
+          <option value="baixa">Baixa</option>
+          <option value="media">Média</option>
+          <option value="alta">Alta</option>
+        </select>
+      </label>
+      <label>
+        Responsável
+        <input [(ngModel)]="novoChamado.responsavel" name="responsavel" />
+      </label>
+      <button type="submit">Salvar chamado</button>
+    </form>
+  }
+
+  <app-filtro-chamados
+    [pesquisa]="pesquisa()"
+    [status]="filtroStatus()"
+    (pesquisaChange)="atualizarPesquisa($event)"
+    (statusChange)="atualizarStatus($event)"
+  />
+  <app-lista-chamados
+    [chamados]="chamadosFiltrados()"
+    [carregando]="carregando()"
+    [erro]="erro()"
+  />
+</main>

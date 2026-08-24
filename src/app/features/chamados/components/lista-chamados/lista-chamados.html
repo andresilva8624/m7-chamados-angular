@@ -1,0 +1,11 @@
+@if (carregando()) {
+  <p>Carregando chamados...</p>
+} @else if (erro()) {
+  <p class="erro">{{ erro() }}</p>
+} @else if (chamados().length === 0) {
+  <p>Nenhum chamado encontrado.</p>
+} @else {
+  @for (chamado of chamados(); track chamado.id) {
+    <app-chamado-card [chamado]="chamado" />
+  }
+}

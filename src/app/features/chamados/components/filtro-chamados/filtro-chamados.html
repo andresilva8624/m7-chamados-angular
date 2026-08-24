@@ -1,0 +1,14 @@
+<section class="filtros">
+  <input
+    type="search"
+    placeholder="Pesquisar chamado"
+    [value]="pesquisa()"
+    (input)="alterarPesquisa($event)"
+  />
+  <select [value]="status()" (change)="alterarStatus($event)">
+    <option value="todos">Todos</option>
+    <option value="aberto">Aberto</option>
+    <option value="em_andamento">Em andamento</option>
+    <option value="concluido">Concluído</option>
+  </select>
+</section>

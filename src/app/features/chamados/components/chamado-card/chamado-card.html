@@ -1,0 +1,7 @@
+<article class="card">
+  <h2>{{ chamado().titulo }}</h2>
+  <p>{{ chamado().descricao }}</p>
+  <p>Prioridade: {{ chamado().prioridade }}</p>
+  <p>Status: {{ chamado().status }}</p>
+  <a [routerLink]="['/chamados', chamado().id]"> Ver detalhes </a>
+</article>

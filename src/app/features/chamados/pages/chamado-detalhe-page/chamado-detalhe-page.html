@@ -1,0 +1,14 @@
+<main class="container">
+  <a routerLink="/chamados">← Voltar para chamados</a>
+  @if (carregando()) {
+    <p>Carregando...</p>
+  } @else if (chamado(); as item) {
+    <h1>{{ item.titulo }}</h1>
+    <p>{{ item.descricao }}</p>
+    <p>Prioridade: {{ item.prioridade }}</p>
+    <p>Status: {{ item.status }}</p>
+    <p>Responsável: {{ item.responsavel || 'Não definido' }}</p>
+  } @else {
+    <p>Chamado não encontrado.</p>
+  }
+</main>
