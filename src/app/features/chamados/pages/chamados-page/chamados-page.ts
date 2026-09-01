@@ -84,29 +84,35 @@ export class ChamadosPage implements OnInit {
     this.exibirFormulario.update((exibir) => !exibir);
   }
 
-  salvarChamado(): void {
+  async salvarChamado(): Promise<void> {
     if (!this.novoChamado.titulo || !this.novoChamado.descricao) {
       return;
     }
 
-    this.chamadosService.adicionar({
-      id: Date.now(),
-      titulo: this.novoChamado.titulo,
-      descricao: this.novoChamado.descricao,
-      prioridade: this.novoChamado.prioridade || 'media',
-      status: this.novoChamado.status || 'aberto',
-      responsavel: this.novoChamado.responsavel || '',
-      criadoEm: new Date().toISOString().split('T')[0],
-    });
+    this.erro.set(null);
 
-    this.novoChamado = {
-      titulo: '',
-      descricao: '',
-      prioridade: 'media',
-      status: 'aberto',
-      responsavel: '',
-    };
-    this.exibirFormulario.set(false);
-    void this.carregarChamados();
+    try {
+      await this.chamadosService.adicionar({
+        id: Date.now(),
+        titulo: this.novoChamado.titulo,
+        descricao: this.novoChamado.descricao,
+        prioridade: this.novoChamado.prioridade || 'media',
+        status: this.novoChamado.status || 'aberto',
+        responsavel: this.novoChamado.responsavel || '',
+        criadoEm: new Date().toISOString().split('T')[0],
+      });
+
+      this.novoChamado = {
+        titulo: '',
+        descricao: '',
+        prioridade: 'media',
+        status: 'aberto',
+        responsavel: '',
+      };
+      this.exibirFormulario.set(false);
+      await this.carregarChamados();
+    } catch {
+      this.erro.set('Não foi possível salvar o chamado.');
+    }
   }
 }

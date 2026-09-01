@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: m7-chamados-angular
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node dist/m7-chamados-angular/server/server.mjs
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
