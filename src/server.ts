@@ -33,6 +33,13 @@ const angularApp = new AngularNodeAppEngine({
  */
 
 /**
+ * Explicit root redirect for Render and browsers that hit the bare domain.
+ */
+app.get('/', (req, res) => {
+  res.redirect('/chamados');
+});
+
+/**
  * Serve static files from /browser
  */
 app.use(
